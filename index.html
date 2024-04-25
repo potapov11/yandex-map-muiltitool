@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+    <script
+      src="https://api-maps.yandex.ru/2.1/?load=package.full&amp;lang=ru-RU&amp;apikey=637a2705-9512-42e4-8b8d-c513db7bd4dd"
+      type="text/javascript"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div id="map">
+        <p class="coords-output">Здесь будут ваши координаты</p>
+        <button class="button map-hide-btn">Скрыть все метки</button>
+        <button class="button show-distance">
+          Показать дистанцию между точками
+        </button>
+        <button class="button set-placemark">Установить точку на карте</button>
+        <button class="button show-polygons">Показать полигоны</button>
+        <button class="button polygon-entry">
+          Проверить вхождение точки в полигон
+        </button>
+        <button class="button zoom-placemarks">
+          Автомасштаб для нескольких точек
+        </button>
+        <button class="button zoom-one-placemark">
+          Приблизиться кликом на Placemark
+        </button>
+      </div>
+      <div class="modal">
+        <p class="modal__text"></p>
+      </div>
+    </div>
+
+    <script src="vars.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
