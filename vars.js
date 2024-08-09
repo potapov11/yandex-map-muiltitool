@@ -1,3 +1,7 @@
+// import zones from "./zones.js";
+
+console.log(zones);
+
 var myMap;
 const coordsOutput = document.querySelector(".coords-output");
 const modal = document.querySelector(".modal");
@@ -68,9 +72,7 @@ function setOnePlaceMarkClickOnMap(status, polygonStatus) {
         if (polygonStatus) {
           clickInPolygon();
         }
-        let trimedCoords = coords.map((coordItem) =>
-          Number(coordItem.toFixed(5))
-        );
+        let trimedCoords = coords.map((coordItem) => Number(coordItem.toFixed(5)));
 
         coordsOutput.textContent = trimedCoords;
       });
@@ -142,12 +144,7 @@ function checkDistanceBewteenPoints() {
     }
   });
 
-  let distance = Math.floor(
-    ymaps.coordSystem.geo.getDistance(
-      pointsMapPlacemarksArr[0],
-      pointsMapPlacemarksArr[1]
-    )
-  );
+  let distance = Math.floor(ymaps.coordSystem.geo.getDistance(pointsMapPlacemarksArr[0], pointsMapPlacemarksArr[1]));
 
   return distance;
 }
@@ -205,8 +202,7 @@ function createPlaceMarks(coords) {
     {
       draggable: true,
       iconLayout: "default#image",
-      iconImageHref:
-        "https://cdn.icon-icons.com/icons2/2444/PNG/512/location_map_pin_mark_icon_148684.png",
+      iconImageHref: "https://cdn.icon-icons.com/icons2/2444/PNG/512/location_map_pin_mark_icon_148684.png",
       iconImageSize: [55, 55],
       iconImageOffset: [-25, -55],
     }
