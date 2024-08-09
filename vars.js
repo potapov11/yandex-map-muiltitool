@@ -28,10 +28,10 @@ function randomNum() {
 
 function createRandomCoords(amount) {
   const coordsArray = [];
-  const lat1 = 59.831322;
-  const lon1 = 30.361588;
-  const lat2 = 60.084367;
-  const lon2 = 30.394974;
+  const lat1 = 59.55; // Южная граница
+  const lon1 = 28.7; // Западная граница
+  const lat2 = 60.25; // Северная граница
+  const lon2 = 31.5; // Восточная граница
 
   for (let i = 0; i < amount; i++) {
     const randomLat = Math.random() * (lat2 - lat1) + lat1;
@@ -41,8 +41,6 @@ function createRandomCoords(amount) {
 
   return coordsArray;
 }
-
-createRandomCoords();
 
 function setOnePlaceMarkClickOnMap(status, polygonStatus) {
   console.log(polygonStatus);
@@ -85,20 +83,34 @@ function setOnePlaceMarkClickOnMap(status, polygonStatus) {
 }
 
 //Функция удаления Placemark с карты
+// function deleteAllPlaceMarks() {
+//   myMap.geoObjects.each(function (geoObject) {
+//     if (geoObject instanceof ymaps.Placemark) {
+//       myMap.geoObjects.remove(geoObject);
+//     }
+//   });
+// }
+
 function deleteAllPlaceMarks() {
-  myMap.geoObjects.each(function (geoObject) {
+  const count = myMap.geoObjects.getLength();
+
+  for (let i = count - 1; i >= 0; i--) {
+    const geoObject = myMap.geoObjects.get(i);
     if (geoObject instanceof ymaps.Placemark) {
       myMap.geoObjects.remove(geoObject);
     }
-  });
+  }
 }
 
 function deletePolygons() {
-  myMap.geoObjects.each(function (geoObject) {
+  const count = myMap.geoObjects.getLength();
+
+  for (let i = count - 1; i >= 0; i--) {
+    const geoObject = myMap.geoObjects.get(i);
     if (geoObject instanceof ymaps.Polygon) {
       myMap.geoObjects.remove(geoObject);
     }
-  });
+  }
 }
 
 function createPolygons() {
@@ -134,35 +146,34 @@ function createPolygons() {
 
     myMap.geoObjects.add(myPolygon);
     console.log(`Polygon ${i}:`, myPolygon);
-
     console.log(myMap);
   }
-
-  // fetch("https://65abe95bfcd1c9dcffc7412c.mockapi.io/zones")
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     console.log(data);
-  //     console.log(data.length);
-
-  //     data.forEach((arr, index) => {
-  //       let reversedArr = arr.map((item) => item.reverse());
-
-  //       let myPolygon2 = new ymaps.Polygon(
-  //         [reversedArr],
-  //         {},
-  //         {
-  //           interactivityModel: "default#transparent",
-  //           fillColor: colorsArray[index],
-  //           strokeWidth: 5,
-  //           opacity: 0.8,
-  //         }
-  //       );
-
-  //       myMap.geoObjects.add(myPolygon2);
-  //     });
-  //   })
-  //   .catch((err) => alert(err));
 }
+
+// fetch("https://65abe95bfcd1c9dcffc7412c.mockapi.io/zones")
+//   .then((response) => response.json())
+//   .then((data) => {
+//     console.log(data);
+//     console.log(data.length);
+
+//     data.forEach((arr, index) => {
+//       let reversedArr = arr.map((item) => item.reverse());
+
+//       let myPolygon2 = new ymaps.Polygon(
+//         [reversedArr],
+//         {},
+//         {
+//           interactivityModel: "default#transparent",
+//           fillColor: colorsArray[index],
+//           strokeWidth: 5,
+//           opacity: 0.8,
+//         }
+//       );
+
+//       myMap.geoObjects.add(myPolygon2);
+//     });
+//   })
+//   .catch((err) => alert(err));
 
 //Функция измерения дистанции между точками
 function checkDistanceBewteenPoints() {

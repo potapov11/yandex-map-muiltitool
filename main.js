@@ -15,7 +15,7 @@ function setMap() {
 }
 
 function setPointOnMap(num) {
-  deletePoints();
+  deleteAllPlaceMarks();
   const randomCoordsArray = createRandomCoords(num);
 
   randomCoordsArray.forEach((coords) => {
@@ -27,9 +27,7 @@ function setPointOnMap(num) {
     placeMark.events.add("dragend", function (e) {
       var coords = e.get("target").geometry.getCoordinates();
 
-      let trimedCoords = coords.map((coordItem) =>
-        Number(coordItem.toFixed(5))
-      );
+      let trimedCoords = coords.map((coordItem) => Number(coordItem.toFixed(5)));
 
       coordsOutput.textContent = trimedCoords;
     });
@@ -49,7 +47,7 @@ setMap(setPointOnMap);
 btnMap.addEventListener("click", (e) => {
   console.dir(e);
   if (btnMap.textContent === "Скрыть все метки") {
-    deletePoints();
+    deleteAllPlaceMarks();
     btnMap.textContent = "Показать метки";
   } else if ((btnMap.textContent = "Показать метки")) {
     setPointOnMap(4);
@@ -59,6 +57,7 @@ btnMap.addEventListener("click", (e) => {
 
 btnShowDistance.addEventListener("click", (e) => {
   deletePolygons();
+  deleteAllPlaceMarks();
   checkIsInPolygon = false;
   const distance = checkDistanceBewteenPoints();
   modal.classList.add("modal-show");
@@ -136,10 +135,3 @@ btnoneZoomPoints.addEventListener("click", () => {
     }
   });
 });
-
-// myMap.panTo(e.get("target").geometry.getCoordinates(), {
-//   delay: 1000,
-//   duration: 5000,
-//   flying: true,
-//   timingFunction: "ease-in-out",
-// });
