@@ -105,32 +105,63 @@ function createPolygons() {
   deletePolygons();
   deleteAllPlaceMarks();
 
-  const colorsArray = ["#200772", "#9F3ED5", "#FFFF40"];
+  const colorsArray = ["#00FF00", "#FFFF00", "#FF00FF"];
+  console.log(zones, "...zones");
 
-  fetch("https://65abe95bfcd1c9dcffc7412c.mockapi.io/zones")
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      console.log(data.length);
+  for (let i = 0; i < zones.length; i++) {
+    let coords = JSON.parse(zones[i].coords);
+    coords = coords.map((item) => item.reverse());
 
-      data.forEach((arr, index) => {
-        let reversedArr = arr.map((item) => item.reverse());
+    console.log(coords);
+    console.log(Array.isArray(coords));
 
-        let myPolygon2 = new ymaps.Polygon(
-          [reversedArr],
-          {},
-          {
-            interactivityModel: "default#transparent",
-            fillColor: colorsArray[index],
-            strokeWidth: 5,
-            opacity: 0.8,
-          }
-        );
+    // Проверка на корректность координат
+    if (!Array.isArray(coords) || coords.length === 0) {
+      console.error(`Координаты полигона ${i} некорректны:`, coords);
+      continue;
+    }
 
-        myMap.geoObjects.add(myPolygon2);
-      });
-    })
-    .catch((err) => alert(err));
+    let myPolygon = new ymaps.Polygon(
+      [coords],
+      {},
+      {
+        interactivityModel: "default#transparent",
+        fillColor: colorsArray[i],
+        strokeWidth: 5,
+        opacity: 0.8,
+      }
+    );
+
+    myMap.geoObjects.add(myPolygon);
+    console.log(`Polygon ${i}:`, myPolygon);
+
+    console.log(myMap);
+  }
+
+  // fetch("https://65abe95bfcd1c9dcffc7412c.mockapi.io/zones")
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     console.log(data);
+  //     console.log(data.length);
+
+  //     data.forEach((arr, index) => {
+  //       let reversedArr = arr.map((item) => item.reverse());
+
+  //       let myPolygon2 = new ymaps.Polygon(
+  //         [reversedArr],
+  //         {},
+  //         {
+  //           interactivityModel: "default#transparent",
+  //           fillColor: colorsArray[index],
+  //           strokeWidth: 5,
+  //           opacity: 0.8,
+  //         }
+  //       );
+
+  //       myMap.geoObjects.add(myPolygon2);
+  //     });
+  //   })
+  //   .catch((err) => alert(err));
 }
 
 //Функция измерения дистанции между точками
